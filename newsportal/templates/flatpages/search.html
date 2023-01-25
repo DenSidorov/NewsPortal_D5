@@ -16,40 +16,29 @@
 </form>
 
 {% if filter %} 
-<table>
-    <tr>
-        <td>
-            Заголовок
-        </td>
-        <td>
-            Дата публикации
-        </td>
-        <td>
-            Категория
-        </td>
-        <td>
-            Текст
-        </td>
-        </tr>
-{% for filter in filter.qs %} <!-- Для каждой новости будете генерироваться новая строчка, т. е. новый html-код. При этом сам цикл работает точно также, как и в Python.  поменяем на filter.qs, т. к. теперь мы забираем уже отобранную по каким-то параметрам информацию -->
-    <tr>
-        <td>
-            <a href="{% url 'post' filter.id %}">{{ filter.title|censor }}</a>
-            <a href="{% url 'post_update' filter.id %}"><u>Редактировать</u></a> <!-- добавим ссылку на редактирование товара-->
- 
-            <a href="{% url 'post_delete' filter.id %}"><u> Удалить </u></a> <!-- добавим ссылку на удаление товара-->
-        </td>
-        <td>
-            {{ filter.dateCreation|date:'d-M-Y H:m' }}
-        </td>
-        <td>
-            {{ filter.categoryType }}
-        </td>
-        <td>
-            {{ filter.text|truncatechars:50|censor }} <!-- truncatechars - фильтр по символам, truncatewords - фильтр по словам -->
-        </td>
-    </tr>
+{% for news in filter.qs %}
+<div class="card">
+    <div class="card-header">
+        <h4>{{ forloop.counter }}) <a href="{% url 'post' news.id %}">{{ news.title|censor }}</a></h4>
+        <p>Категория: {{ news.categoryType }}</p>
+    </div>
+    <div class="card-body">
+        {{ news.text|truncatechars:150|censor }}
+        <!-- truncatechars - фильтр по символам, truncatewords - фильтр по словам -->
+    </div>
+    <div class="card-footer">
+        {{ news.dateCreation|date:'d-M-Y H:m' }}
+        <div>
+            <a href="{% url 'post_update' news.id %}"><u> <button type="submit"
+                        class="btn btn-primary">Редактировать</button> </u></a>
+            <!-- добавим ссылку на редактирование товара-->
+
+            <a href="{% url 'post_delete' news.id %}"><u> <button type="submit" class="btn btn-primary">Удалить</button>
+                </u></a> <!-- добавим ссылку на удаление товара-->
+        </div>
+    </div>
+</div>
 {% endfor %}
-</table>
+
 {% endif %}
 {% endblock content %}

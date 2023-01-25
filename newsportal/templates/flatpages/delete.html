@@ -4,39 +4,25 @@
  
 {% block content %}
 <h2>Вы действительно хотите удалить данный пост?</h2>
-<table>
-    <thead>
-        <th>
-            Заголовок
-        </th>
-        <th>
-            Дата публикации
-        </th>
-        <th>
-            Категория
-        </th>
-        <th>
-            Текст
-        </th>
-    </thead>
-    <tr>
-        <td>
-            {{ post.title }}
-        </td>
-        <td>
-            {{ post.dateCreation|date:'d-M-Y H:m' }}
-        </td>
-        <td>
-            {{ post.categoryType }}
-        </td>
-        <td>
-            {{ post.text }}
-        </td>
-    </tr>
-</table>
+
+<div class="card">
+    <div class="card-header">
+        <h4>{{ post.title }}</h4>
+        <p>Категория: {{ post.categoryType }}</p>
+    </div>
+    <div class="card-body">
+        {{ post.text }}
+        <!-- truncatechars - фильтр по символам, truncatewords - фильтр по словам -->
+    </div>
+    <div class="card-footer">
+        {{ post.dateCreation|date:'d-M-Y H:m' }}
+        
+    </div>
+
+</div>
  
 <form method="POST">
     {% csrf_token %}
-    <input type="submit" value="подтвердить">
+    <button type="submit" class="btn btn-danger">Подтвердить</button>
 </form>
 {% endblock content %} 
