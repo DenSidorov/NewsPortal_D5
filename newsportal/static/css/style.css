@@ -1,4 +1,10 @@
+.my-card {
+    margin-bottom: 10px;
+}
+
 .card-header {
+    padding: 0;
+    margin: 0;
     display: flex;
     justify-content: space-between;
 }
@@ -11,5 +17,4 @@
 .form {
     display: grid;
     text-align: left;
-
 }

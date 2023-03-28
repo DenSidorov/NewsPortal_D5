@@ -1,8 +1,8 @@
 from django.shortcuts import render
 from django.views.generic import ListView, DetailView, UpdateView, CreateView, DeleteView
-from .models import Post
+from .models import Post, Comment
 from .filters import PostFilter
-from .forms import PostForm
+from .forms import PostForm, CommentForm
 from django.contrib.auth.mixins import PermissionRequiredMixin
 
 
@@ -20,9 +20,15 @@ class PostList(ListView):
         return context
 
 
-class PostDetail(DetailView):
+class PostDetail(DetailView, CreateView):
     template_name = 'flatpages/post.html'
     queryset = Post.objects.all()
+    comment = Comment.objects.all()
+    form_class = CommentForm
+
+    def get_object(self, **kwargs):
+        id = self.kwargs.get('pk')
+        return Post.objects.get(pk=id)
 
 
 class PostSearch(PostList):
