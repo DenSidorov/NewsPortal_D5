@@ -13,10 +13,10 @@
   <title>{% block title %} {% endblock title %}</title>
  
   <!-- Bootstrap core CSS -->
-  <!-- <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet"> -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+  <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+  <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous"> -->
   <link rel="stylesheet" href="{% static 'css/style.css' %}" />
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+  <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script> -->
  
 </head>
  
@@ -32,30 +32,29 @@
       <div class="collapse navbar-collapse" id="navbarResponsive">
         <ul class="navbar-nav ml-auto">
           <li class="nav-item active">
-            <a class="nav-link" href="/news/">News
-              <span class="sr-only">(current)</span>
+            <a class="nav-link" href="/news/">Посты
             </a>
           </li>
           <li class="nav-item active">
-            <a class="nav-link" href="{% url 'post_create' %}">New post</a>
+            <a class="nav-link" href="{% url 'post_create' %}">Новый пост</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="{% url 'search' %}">Search</a>
+            <a class="nav-link" href="{% url 'search' %}">Поиск</a>
           </li>
         </ul>
       </div>
     </div>
-  </nav>
- 
-{% if user.is_authenticated %}
-  <p>Welcome, {{ user.username }} !</p>
-    <a href="{% url 'logout' %}">Logout</a>
+    
+    {% if user.is_authenticated %}
+    <!-- <h5 style="color: white;">Добрый день, {{ user.username }} !</h5> -->
+    <a href="{% url 'logout' %}"><button type="submit" class="btn btn-primary">Logout</button></a>
     {% if is_not_authors %}
-      <button> <a href="{% url 'upgrade' %}"> Хочу быть автором!</a> </button>
+    <button> <a href="{% url 'upgrade' %}"> Хочу быть автором!</a> </button>
     {% endif %}
-{% else %}
+    {% else %}
     <a href="/accounts/login/">Login with Google</a>
-{% endif %}
+    {% endif %}
+  </nav>
 
   <!-- Page Content -->
   <div class="container">

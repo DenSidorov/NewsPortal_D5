@@ -22,6 +22,23 @@ Post
             {{ post.dateCreation|date:'d-M-Y H:m' }}
             
         </div>
+        <div class="card">
+            <div class="card-header">
+            {% for comments in post.comment_set.all %}
+                <p>Комментарий от: {{ comments.commentUser }}</p>
+            </div>
+            <div class="card-body">
+                <p>{{ comments.text|truncatechars:150|censor }}</p>
+            </div>
+            {% endfor %}
+        </div>
+        <div>
+            <form class="form" method="POST">
+                {% csrf_token %} 
+                {{ form }} <!-- Теперь нам нужна только готовая форма и кнопка -->
+                <button type="submit" class="btn btn-warning">Добавить комментарий</button>
+            </form>
+        </div>
     
     </div>
 

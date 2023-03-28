@@ -35,14 +35,14 @@ class Category(models.Model):
 class Post(models.Model):
     author = models.ForeignKey(Author, on_delete=models.CASCADE)
 
-    NEWS = 'NW'
-    ARTICLE = 'AR'
+    NEWS = 'Новость'
+    ARTICLE = 'Статья'
     CATEGORY_CHOICES = (
         (NEWS, 'Новость'),
         (ARTICLE, 'Статья'),
     )
     categoryType = models.CharField(
-        max_length=2, choices=CATEGORY_CHOICES, default=ARTICLE)
+        max_length=7, choices=CATEGORY_CHOICES, default=ARTICLE)
     dateCreation = models.DateTimeField(auto_now_add=True)
     postCategory = models.ManyToManyField(Category, through='PostCategory')
     title = models.CharField(max_length=128)
